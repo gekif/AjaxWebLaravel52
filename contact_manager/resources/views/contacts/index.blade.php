@@ -42,7 +42,7 @@
     <div class="card-footer">
       <nav aria-label="Page Navigation">
         <ul class="pagination justify-content-center">
-          {{ $contacts->links() }}
+          {{ $contacts->appends(Request::query())->render() }}
         </ul>
       </nav>
     </div>

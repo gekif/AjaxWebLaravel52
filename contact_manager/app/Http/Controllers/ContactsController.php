@@ -9,14 +9,22 @@ use App\Http\Requests;
 
 class ContactsController extends Controller
 {
+    private $limit = 5;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $contacts = Contact::paginate(10);
+        if ($group_id = $request->get('group_id')) {
+            $contacts = Contact::where('group_id', $group_id)->paginate($this->limit);
+
+        } else {
+            $contacts = Contact::paginate($this->limit);
+
+        }
 
         return view('contacts.index', compact('contacts'));
     }

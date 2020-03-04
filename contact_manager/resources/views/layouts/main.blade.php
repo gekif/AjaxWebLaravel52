@@ -38,16 +38,21 @@
     <div class="row">
       <div class="col-md-3">
         <div class="list-group">
-          <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active">All Contact <span class="badge badge-warning badge-pill">14</span></a>
-          <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Family <span class="badge badge-pill badge-warning">4</span></a>
-          <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Friends <span class="badge badge-pill badge-warning">3</span></a>
-          <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Other <span class="badge badge-pill badge-warning">3</span></a>
+
+          @php $selected_group = Request::get('group_id') @endphp
+          <a href="{{ route('contacts.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {{ empty($selected_group) ? 'active' : '' }}">All Contact <span class="badge badge-warning badge-pill">{{ App\Contact::count() }}</span></a>
+
+
+          @foreach (App\Group::all() as $group)
+            <a href="{{ route('contacts.index', ['group_id' => $group->id]) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {{ $selected_group == $group->id ? 'active' : '' }}">{{ $group->name }} <span class="badge badge-pill badge-warning">{{ $group->contacts->count() }}</span></a>
+          @endforeach
+
         </div>
       </div><!-- /.col-md-3 -->
 
       <div class="col-md-9">
         <div class="card">
-          <div class="card-header"><strong>All Contacts</strong></div>
+          {{--<div class="card-header"><strong>All Contacts</strong></div>--}}
           @yield('content')
       </div>
     </div>
