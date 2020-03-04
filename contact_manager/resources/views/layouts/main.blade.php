@@ -46,6 +46,8 @@
       </div><!-- /.col-md-3 -->
 
       <div class="col-md-9">
+        <div class="card">
+          <div class="card-header"><strong>All Contacts</strong></div>
           @yield('content')
       </div>
     </div>
