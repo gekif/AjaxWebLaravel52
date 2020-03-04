@@ -52,8 +52,15 @@
 
       <div class="col-md-9">
         <div class="card">
-          {{--<div class="card-header"><strong>All Contacts</strong></div>--}}
+
+          @if (empty($selected_group))
+            <div class="card-header"><strong>All Contacts</strong></div>
+          @else
+            <div class="card-header"><strong>{{ $contact->group->name }}</strong></div>
+          @endif
+
           @yield('content')
+
       </div>
     </div>
   </div>
