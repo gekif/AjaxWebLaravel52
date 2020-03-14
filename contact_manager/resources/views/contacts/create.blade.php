@@ -89,7 +89,7 @@
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
                     <button type="submit" class="btn btn-primary">Save</button>
-                    <a href="#" class="btn btn-outline-secondary">Cancel</a>
+                    <a href="/contacts" class="btn btn-outline-secondary">Cancel</a>
                 </div>
             </div>
         </div>
@@ -103,6 +103,7 @@
 @section('js')
 <script>
     $("#all-contact").hide();
+    $(".btn-outline-primary").hide();
 </script>
 @stop
 
