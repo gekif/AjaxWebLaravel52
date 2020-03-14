@@ -2,7 +2,6 @@
 
 @section('content')
 
-
     <table class="table">
 
       @foreach ($contacts as $contact)

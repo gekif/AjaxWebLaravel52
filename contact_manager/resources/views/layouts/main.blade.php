@@ -9,8 +9,9 @@
 
   <!-- Bootstrap -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/css/custom.css" rel="stylesheet">
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/css/jasny-bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/css/custom.css" rel="stylesheet">
 </head>
 <body>
 <!-- navbar -->
@@ -26,7 +27,7 @@
     <!-- /.navbar-header -->
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a href="form.html" class="btn btn-outline-primary">Add New</a></li>
+        <li class="nav-item"><a href="{{ route('contacts.create') }}" class="btn btn-outline-primary">Add New</a></li>
       </ul>
     </div>
   </div>
@@ -53,10 +54,11 @@
       <div class="col-md-9">
         <div class="card">
 
+
           @if (empty($selected_group))
-            <div class="card-header"><strong>All Contacts</strong></div>
+            <div class="card-header" id="all-contact"><strong>All Contacts</strong></div>
           @else
-            <div class="card-header"><strong>{{ $contact->group->name }}</strong></div>
+            <div class="card-header" id="contact-group"><strong>{{ $contact->group->name }}</strong></div>
           @endif
 
           @yield('content')
@@ -64,10 +66,15 @@
       </div>
     </div>
   </div>
+  </div>
 </main>
 
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/jasny-bootstrap.min.js"></script>
+
+@yield('js')
+
 </body>
 </html>
