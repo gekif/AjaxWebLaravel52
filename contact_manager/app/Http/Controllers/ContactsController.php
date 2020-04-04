@@ -11,6 +11,12 @@ class ContactsController extends Controller
 {
     private $limit = 5;
 
+    private $rules = [
+        'name' => 'required|min:5',
+        'company' => 'required',
+        'email' => 'required|email'
+    ];
+
 
     /**
      * Display a listing of the resource.
@@ -20,10 +26,10 @@ class ContactsController extends Controller
     public function index(Request $request)
     {
         if ($group_id = $request->get('group_id')) {
-            $contacts = Contact::where('group_id', $group_id)->orderBy('id', 'desc')->paginate($this->limit);
+            $contacts = Contact::where('group_id', $group_id)->orderBy('updated_at', 'desc')->paginate($this->limit);
 
         } else {
-            $contacts = Contact::orderBy('id', 'desc')->paginate($this->limit);
+            $contacts = Contact::orderBy('updated_at', 'desc')->paginate($this->limit);
 
         }
 
@@ -50,13 +56,7 @@ class ContactsController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'name' => 'required|min:5',
-            'company' => 'required',
-            'email' => 'required|email'
-        ];
-
-        $this->validate($request, $rules);
+        $this->validate($request, $this->rules);
 
         Contact::create($request->all());
 
@@ -83,7 +83,9 @@ class ContactsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contact = Contact::find($id);
+
+        return view('contacts.edit', compact('contact'));
     }
 
 
@@ -96,7 +98,13 @@ class ContactsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, $this->rules);
+
+        $contact = Contact::find($id);
+
+        $contact->update($request->all());
+
+        return redirect('contacts')->with('message', 'Contact Updated!');
     }
 
 
