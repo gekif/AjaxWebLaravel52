@@ -12,7 +12,8 @@ class Contact extends Model
         'address',
         'company',
         'phone',
-        'group_id'
+        'group_id',
+        'photo'
     ];
 
     
