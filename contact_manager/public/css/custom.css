@@ -1,9 +1,9 @@
 body {
+	padding-top: 70px;
 	background: #eee;
 }
 
 .navbar {
-	background: #f8f8f8;
 	-moz-box-shadow: rgba(0, 0, 0, 0.09) 0 2px 0;
 	-webkit-box-shadow: rgba(0, 0, 0, 0.09) 0 2px 0;
 	box-shadow: rgba(0, 0, 0, 0.09) 0 2px 0;
@@ -28,12 +28,8 @@ body {
 	padding: 10px 0;
 }
 
-.media img, .fileinput .img-thumbnail, .img-thumbnail img {
+.media img, .fileinput .thumbnail, .thumbnail img {
 	border-radius: 50%;
-}
-
-.fileinput {
-	text-align: center;
 }
 
 .media-left {
@@ -57,8 +53,4 @@ body {
   font-size: 12px;
   line-height: 1.428571429;
   border-radius: 15px;
-}
-
-ul.pagination {
-	margin-bottom: 0;
 }

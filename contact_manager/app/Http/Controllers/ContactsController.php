@@ -11,6 +11,7 @@ class ContactsController extends Controller
 {
     private $limit = 5;
 
+
     /**
      * Display a listing of the resource.
      *
@@ -19,15 +20,16 @@ class ContactsController extends Controller
     public function index(Request $request)
     {
         if ($group_id = $request->get('group_id')) {
-            $contacts = Contact::where('group_id', $group_id)->paginate($this->limit);
+            $contacts = Contact::where('group_id', $group_id)->orderBy('id', 'desc')->paginate($this->limit);
 
         } else {
-            $contacts = Contact::paginate($this->limit);
+            $contacts = Contact::orderBy('id', 'desc')->paginate($this->limit);
 
         }
 
         return view('contacts.index', compact('contacts'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -39,6 +41,7 @@ class ContactsController extends Controller
         return view('contacts.create');
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -47,8 +50,19 @@ class ContactsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name' => 'required|min:5',
+            'company' => 'required',
+            'email' => 'required|email'
+        ];
+
+        $this->validate($request, $rules);
+
+        Contact::create($request->all());
+
+        return redirect('contacts')->with('message', 'Contact Saved!');
     }
+
 
     /**
      * Display the specified resource.
@@ -72,6 +86,7 @@ class ContactsController extends Controller
         //
     }
 
+
     /**
      * Update the specified resource in storage.
      *
@@ -84,6 +99,7 @@ class ContactsController extends Controller
         //
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -94,4 +110,5 @@ class ContactsController extends Controller
     {
         //
     }
+
 }
