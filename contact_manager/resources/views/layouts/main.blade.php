@@ -47,6 +47,18 @@
           Add Contact
         </a>
       </div>
+
+      <form action="{{ route('contacts.index') }}" role="search" class="navbar-form navbar-right">
+        <div class="input-group">
+          <input type="text" name="term" value="{{ Request::get('term') }}" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </span>
+        </div>
+      </form>
+
     </div>
   </div>
 </nav>
@@ -75,19 +87,20 @@
       @endif
 
         @yield('content')
+
     </div>
   </div>
 </div>
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-{{--<script src="assets/js/jquery.min.js"></script>--}}
 <script src="{{ asset('js/jquery.min.js') }}"></script>
+
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-{{--<script src="assets/js/bootstrap.min.js"></script>--}}
 <script src="{{ asset('js/jquery.min.js') }}"></script>
-{{--<script src="assets/js/jasny-bootstrap.min.js"></script>--}}
+
 <script src="{{ asset('js/jasny-bootstrap.min.js') }}"></script>
+
 <script>
   $("#add-new-group").hide();
   $('#add-group-btn').click(function () {
