@@ -18,6 +18,14 @@ class ContactsController extends Controller
         'photo' => 'mimes:jpg,jpeg,png,gif,bmp'
     ];
 
+    private $upload_dir = 'public/uploads';
+
+
+    public function __construct()
+    {
+        $this->upload_dir = base_path() . '/' . $this->upload_dir;
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -58,7 +66,7 @@ class ContactsController extends Controller
     {
         $this->validate($request, $this->rules);
 
-        $data = $this->getReqest($request);
+        $data = $this->getRequest($request);
 
         Contact::create($data);
 
@@ -102,10 +110,17 @@ class ContactsController extends Controller
     {
         $this->validate($request, $this->rules);
 
+        $contact = Contact::find($id);
+
+        $oldPhoto = $contact->photo;
+
         $data = $this->getRequest($request);
 
-        $contact = Contact::find($id);
         $contact->update($data);
+
+        if ($oldPhoto !== $contact->photo) {
+            $this->removePhoto($oldPhoto);
+        }
 
         return redirect('contacts')->with('message', 'Contact Updated!');
     }
@@ -115,11 +130,16 @@ class ContactsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $contact = Contact::find($id);
+
+        $contact->delete();
+        $this->removePhoto($contact->photo);
+
+        return redirect('contacts')->with('message', 'Contact Deleted!');
     }
 
 
@@ -130,13 +150,24 @@ class ContactsController extends Controller
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
             $fileName = $photo->getClientOriginalName();
-            $destination = base_path() . '/public/uploads';
+            $destination = $this->upload_dir;
             $photo->move($destination, $fileName);
 
             $data['photo'] = $fileName;
         }
 
         return $data;
+    }
+
+
+    private function removePhoto($photo)
+    {
+        if (!empty($photo)) {
+            $file_path = $this->upload_dir . '/' . $photo;
+
+            if (file_exists($file_path))
+                 unlink($file_path);
+        }
     }
 
 }
