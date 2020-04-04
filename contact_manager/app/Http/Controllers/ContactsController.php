@@ -179,4 +179,27 @@ class ContactsController extends Controller
         }
     }
 
+
+    public function autocomplete(Request $request)
+    {
+        if ($request->ajax()) {
+            return Contact::select(['id', 'name as value'])->where(function ($query) use ($request) {
+                if ($group_id = ($request->get('group_id'))) {
+                    $query->where('group_id', $group_id);
+                }
+
+                if (($term = $request->get('term'))) {
+                    $keywords = '%' . $term . '%';
+
+                    $query->orWhere('name', 'LIKE', $keywords);
+                    $query->orWhere('company', 'LIKE', $keywords);
+                    $query->orWhere('email', 'LIKE', $keywords);
+                }
+            })
+                ->orderBy('name', 'asc')
+                ->take(5)
+                ->get();
+        }
+    }
+
 }

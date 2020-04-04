@@ -8,13 +8,10 @@
   <title>My Contact</title>
 
   <!-- Bootstrap -->
-{{--  <link href="assets/css/bootstrap.min.css" rel="stylesheet">--}}
-{{--  <link href="assets/css/jasny-bootstrap.min.css" rel="stylesheet">--}}
-{{--  <link href="assets/css/custom.css" rel="stylesheet">--}}
-
 <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 <link href="{{ asset('css/jasny-bootstrap.min.css') }}" rel="stylesheet">
 <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+<link href="{{ asset('jquery-ui/jquery-ui.min.css') }}" rel="stylesheet">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -98,8 +95,8 @@
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="{{ asset('js/jquery.min.js') }}"></script>
-
 <script src="{{ asset('js/jasny-bootstrap.min.js') }}"></script>
+<script src="{{ asset('jquery-ui/jquery-ui.min.js') }}"></script>
 
 <script>
   $("#add-new-group").hide();
@@ -109,6 +106,19 @@
     });
     return false;
   });
+</script>
+
+<script>
+    $(function () {
+        $("input[name=term]").autocomplete({
+            source: "{{ route('contacts.autocomplete') }}",
+            minLength: 3,
+            select: function (event, ui) {
+                $(this).val(ui.item.value);
+            }
+
+        });
+    });
 </script>
 </body>
 </html>
