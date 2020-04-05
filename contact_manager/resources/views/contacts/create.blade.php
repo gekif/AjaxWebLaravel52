@@ -66,12 +66,12 @@
                                         <a href="#" id="add-group-btn" class="btn btn-default btn-block">Add Group</a>
                                     </div>
                                 </div>
-                                <div class="form-group" id="add-new-group">
+                                <div  class="form-group" id="add-new-group">
                                     <div class="col-md-offset-3 col-md-8">
                                         <div class="input-group">
                                             <input type="text" name="new_group" id="new_group" class="form-control">
                                             <span class="input-group-btn">
-                                    <a href="#" class="btn btn-default">
+                                    <a id="add-new-btn" href="#" class="btn btn-default">
                                       <i class="glyphicon glyphicon-ok"></i>
                                     </a>
                                   </span>
@@ -109,4 +109,50 @@
 
         {!! Form::close() !!}
     </div>
+@endsection
+
+@section('form-script')
+
+<script>
+    $("#add-new-group").hide();
+    $('#add-group-btn').click(function () {
+        $("#add-new-group").slideToggle(function() {
+            $('#new_group').focus();
+        });
+        return false;
+    });
+</script>
+
+
+<script>
+        $('#add-new-btn').click(function () {
+            var newGroup = $("#new_group");
+
+            $.ajax({
+                url: "{{ route('groups.store') }}",
+                method: 'post',
+                data: {
+                    name: $('#new_group').val(),
+                    _token: $("input[name=_token]").val()
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (xhr) {
+                    var errors = xhr.responseJSON;
+                    var error = errors.name[0];
+
+                    if (error) {
+                        var inputGroup = newGroup.closest('.input-group');
+
+                        inputGroup.next('.text-danger').remove();
+
+                        inputGroup
+                            .addClass('has-error')
+                            .after('<p class="text-danger">' + error + '</p>')
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

@@ -99,16 +99,6 @@
 <script src="{{ asset('jquery-ui/jquery-ui.min.js') }}"></script>
 
 <script>
-  $("#add-new-group").hide();
-  $('#add-group-btn').click(function () {
-    $("#add-new-group").slideToggle(function() {
-      $('#new_group').focus();
-    });
-    return false;
-  });
-</script>
-
-<script>
     $(function () {
         $("input[name=term]").autocomplete({
             source: "{{ route('contacts.autocomplete') }}",
@@ -116,9 +106,11 @@
             select: function (event, ui) {
                 $(this).val(ui.item.value);
             }
-
         });
     });
 </script>
+
+@yield('form-script')
+
 </body>
 </html>
