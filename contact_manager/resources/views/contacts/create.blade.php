@@ -127,6 +127,7 @@
 <script>
         $('#add-new-btn').click(function () {
             var newGroup = $("#new_group");
+            var inputGroup = newGroup.closest('.input-group');
 
             $.ajax({
                 url: "{{ route('groups.store') }}",
@@ -135,18 +136,28 @@
                     name: $('#new_group').val(),
                     _token: $("input[name=_token]").val()
                 },
-                success: function (response) {
-                    console.log(response);
+                success: function (group) {
+                    if (group.id != null) {
+                        inputGroup.removeClass('has-error');
+                        inputGroup.next('text-danger').remove();
+
+                        var newOption = $('<option></option>')
+                            .attr('value', group.id)
+                            .attr('selected', true)
+                            .text(group.name);
+
+                        $("select[name=group_id]")
+                            .append(newOption);
+
+                        newGroup.val("");
+                    }
                 },
                 error: function (xhr) {
                     var errors = xhr.responseJSON;
                     var error = errors.name[0];
 
                     if (error) {
-                        var inputGroup = newGroup.closest('.input-group');
-
                         inputGroup.next('.text-danger').remove();
-
                         inputGroup
                             .addClass('has-error')
                             .after('<p class="text-danger">' + error + '</p>')
