@@ -3,9 +3,20 @@
 @section('content')
 
     @if (count($contacts) > 0)
-    <h1>List of Contacts</h1>
-
     <div class="panel panel-default">
+
+        <div class="panel-heading clearfix">
+            <div class="pull-left">
+                <h4>All Contacts</h4>
+            </div>
+            <div class="pull-right">
+                <a href="{{ route('contacts.create') }}" class="btn btn-success">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    Add Contact
+                </a>
+            </div>
+        </div>
+
         <table class="table">
 
             @foreach ($contacts as $contact)

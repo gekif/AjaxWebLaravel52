@@ -100,7 +100,7 @@
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-6">
                                     <button type="submit" class="btn btn-primary">Save</button>
-                                    <a href="#" class="btn btn-default">Cancel</a>
+                                    <a href="/" class="btn btn-default">Cancel</a>
                                 </div>
                             </div>
                         </div>
