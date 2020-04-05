@@ -1,6 +1,8 @@
 @extends('layouts.main')
 
 @section('content')
+
+    @if (count($contacts) > 0)
     <h1>List of Contacts</h1>
 
     <div class="panel panel-default">
@@ -50,5 +52,11 @@
             {!! $contacts->appends(Request::query())->render() !!}
         </nav>
     </div>
+
+    @else
+        <h1>No Contact On The Group</h1>
+        <hr>
+    @endif
+
 @endsection
 
