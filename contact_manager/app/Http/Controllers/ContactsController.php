@@ -107,7 +107,9 @@ class ContactsController extends Controller
      */
     public function edit($id)
     {
-        $contact = Contact::find($id);
+        $contact = Contact::findOrFail($id);
+
+        $this->authorize('modify', $contact);
 
         return view('contacts.edit', compact('contact'));
     }
