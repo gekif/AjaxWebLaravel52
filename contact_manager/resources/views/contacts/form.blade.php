@@ -91,7 +91,7 @@
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
                     <button type="submit" class="btn btn-primary">{{ !empty($contact->id) ? 'Update' : 'Save' }}</button>
-                    <a href="#" class="btn btn-default">Cancel</a>
+                    <a href="{{ route('contacts.index') }}" class="btn btn-default">Cancel</a>
                 </div>
             </div>
         </div>
