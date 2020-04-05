@@ -21,4 +21,11 @@ class Contact extends Model
     {
         return $this->belongsTo('App\Group');
     }
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
