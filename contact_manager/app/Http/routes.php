@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return redirect('/contacts');
+    return view('welcome');
 });
 
 Route::post('groups/store', ['uses' => 'GroupsController@store', 'as' => 'groups.store']);
@@ -20,3 +20,7 @@ Route::post('groups/store', ['uses' => 'GroupsController@store', 'as' => 'groups
 Route::get('contacts/autocomplete', ['uses' => 'ContactsController@autocomplete', 'as' => 'contacts.autocomplete']);
 
 Route::resource('contacts', 'ContactsController');
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
