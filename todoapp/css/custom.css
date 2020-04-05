@@ -51,7 +51,7 @@ h1.header-title {
     cursor: pointer;
 }
 
-.list-group-item:hover .buttons {
+.list-group-item:hover .buttons, table.table tr:hover .row-buttons {
     display: block;
 }
 
@@ -73,7 +73,7 @@ h1.header-title {
     display: none;
 }
 
-.panel-footer small {
+.panel-footer small, .modal-footer small {
     color: #999;
 }
 
@@ -81,4 +81,45 @@ h1.header-title {
 /* Modal */
 .modal-content {
     background: #f1f1f1 url('../img/body-bg.png');
+}
+
+
+/* Task Modal */
+input.task-input {
+    width: 100%;
+    border: none;
+    font-size: 18px;
+    height: 46px;
+    line-height: 1.33333;
+    color: #555;
+    display: block;
+    font-style: italic;
+}
+
+input.task-input:focus, input.task-input:active {
+    outline: none;
+}
+
+.done {
+    text-decoration: line-through;
+    color: #ddd;
+}
+
+table.table tbody tr td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.task-item {
+    position: relative;
+}
+
+.row-buttons {
+    position: absolute;
+    height: 20px;
+    width: 40px;
+    top: 15px;
+    right: 10px;
+    text-align: center;
+    display: none;
 }
