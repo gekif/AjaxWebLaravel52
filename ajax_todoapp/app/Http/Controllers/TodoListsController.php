@@ -6,6 +6,7 @@ use App\Todolist;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class TodoListsController extends Controller
 {
@@ -14,9 +15,12 @@ class TodoListsController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $todolists = Todolist::all();
+        $todolists = $request->user()
+            ->todolists()
+            ->orderBy('updated_at', 'desc')
+            ->get();
 
         return view('todolists.index', compact('todolists'));
     }

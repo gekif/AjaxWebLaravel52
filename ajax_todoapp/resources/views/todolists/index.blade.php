@@ -39,7 +39,7 @@
                 <ul class="list-group" id="todo-list">
 
                     @foreach ($todolists as $todolist)
-                        <li class="list-group-item">
+                        <li class="list-group-item" id="todo-list-{{ $todolist->id }}">
                         <h4 class="list-group-item-heading">{{ $todolist->title }} <span class="badge">0 tasks</span></h4>
                         <p class="list-group-item-text">{{ $todolist->description }}</p>
                         <div class="buttons">
@@ -58,114 +58,14 @@
 
                 </ul>
                 <div class="panel-footer">
-                    <small>{{ $count }} list items</small>
+                    <small><span id="todo-list-counter">{{ $count }}</span> <span>{{ $count > 1 ? 'records' : 'record' }}</span></small>
                 </div>
             </div>
         </div>
 
-        <div class="modal fade" id="todolist-modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Create New List</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form action="">
-                            <div class="form-group">
-                                <label for="" class="control-label">List Name</label>
-                                <input type="text" class="form-control input-lg">
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="control-label">Descriptions</label>
-                                <textarea rows="2" class="form-control"></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+        @include('todolists.todolistmodal')
 
-        <div class="modal fade" id="task-modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Todo List</h4>
-                        <p>of <strong>To do List 1</strong></p>
-                    </div>
-                    <div class="modal-body">
-                        <div class="panel panel-default">
-                            <table class="table">
-                                <thead>
-                                <td width="50" style="vertical-align: middle;">
-                                    <input type="checkbox" name="check_all" id="check-all">
-                                </td>
-                                <td>
-                                    <input type="text" placeholder="Enter New Task" class="task-input">
-                                </td>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" class="check-item">
-                                    </td>
-                                    <td class="task-item done">
-                                        The first task
-                                        <div class="row-buttons">
-                                            <a href="" class="btn btn-xs btn-danger">
-                                                <i class="glyphicon glyphicon-remove"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" class="check-item">
-                                    </td>
-                                    <td class="task-item">
-                                        The second task
-                                        <div class="row-buttons">
-                                            <a href="" class="btn btn-xs btn-danger">
-                                                <i class="glyphicon glyphicon-remove"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" class="check-item">
-                                    </td>
-                                    <td class="task-item">
-                                        The third task
-                                        <div class="row-buttons">
-                                            <a href="" class="btn btn-xs btn-danger">
-                                                <i class="glyphicon glyphicon-remove"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="modal-footer clearfix">
-                        <div class="pull-left">
-                            <a href="" class="btn btn-xs btn-default active">All</a>
-                            <a href="" class="btn btn-xs btn-default">Active</a>
-                            <a href="" class="btn btn-xs btn-default">Completed</a>
-                        </div>
-                        <div class="pull-right">
-                            <small>3 items left</small>
-                        </div>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+        @include('todolists.taskmodal')
 
     </div>
 </div>
