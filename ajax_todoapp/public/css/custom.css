@@ -123,3 +123,7 @@ table.table tbody tr td {
     text-align: center;
     display: none;
 }
+
+.hidden {
+    display: none;
+}

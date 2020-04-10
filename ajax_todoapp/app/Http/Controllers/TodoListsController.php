@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Todolist;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,7 +16,9 @@ class TodoListsController extends Controller
      */
     public function index()
     {
-        return view('todolists.index');
+        $todolists = Todolist::all();
+
+        return view('todolists.index', compact('todolists'));
     }
 
     /**

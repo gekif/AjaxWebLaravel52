@@ -29,11 +29,19 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel-panel-default">
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <h4 class="list-group-item-heading">List Group Item Heading <span class="badge">10 tasks</span></h4>
-                        <p class="list-group-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci architecto corporis ex ipsum iste magni nesciunt odio officiis optio perferendis quasi recusandae, repellendus vel velit veniam voluptatem voluptatum. Eligendi, porro?</p>
+
+            @php $count = $todolists->count() @endphp
+            <div class="alert alert-warning {{ $count ? 'hidden' : '' }}" id="no-record-alert">
+                No Records found.
+            </div>
+
+            <div class="panel-panel-default {{ !$count ? 'hidden' : '' }}">
+                <ul class="list-group" id="todo-list">
+
+                    @foreach ($todolists as $todolist)
+                        <li class="list-group-item">
+                        <h4 class="list-group-item-heading">{{ $todolist->title }} <span class="badge">0 tasks</span></h4>
+                        <p class="list-group-item-text">{{ $todolist->description }}</p>
                         <div class="buttons">
                             <a href="#" class="btn btn-info show-task-modal btn-xs" title="Manage Tasks">
                                 <i class="glyphicon glyphicon-ok"></i>
@@ -46,39 +54,11 @@
                             </a>
                         </div>
                     </li>
-                    <li class="list-group-item">
-                        <h4 class="list-group-item-heading">List Group Item Heading <span class="badge">10 tasks</span></h4>
-                        <p class="list-group-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci architecto corporis ex ipsum iste magni nesciunt odio officiis optio perferendis quasi recusandae, repellendus vel velit veniam voluptatem voluptatum. Eligendi, porro?</p>
-                        <div class="buttons">
-                            <a href="#" class="btn btn-info show-task-modal btn-xs" title="Manage Tasks">
-                                <i class="glyphicon glyphicon-ok"></i>
-                            </a>
-                            <a href="#" class="btn btn-default show-todolist-modal btn-xs" title="Edit">
-                                <i class="glyphicon glyphicon-edit"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-xs" title="Delete">
-                                <i class="glyphicon glyphicon-remove"></i>
-                            </a>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <h4 class="list-group-item-heading">List Group Item Heading <span class="badge">10 tasks</span></h4>
-                        <p class="list-group-item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci architecto corporis ex ipsum iste magni nesciunt odio officiis optio perferendis quasi recusandae, repellendus vel velit veniam voluptatem voluptatum. Eligendi, porro?</p>
-                        <div class="buttons">
-                            <a href="#" class="btn btn-info show-task-modal btn-xs" title="Manage Tasks">
-                                <i class="glyphicon glyphicon-ok"></i>
-                            </a>
-                            <a href="#" class="btn btn-default show-todolist-modal btn-xs" title="Edit">
-                                <i class="glyphicon glyphicon-edit"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-xs" title="Delete">
-                                <i class="glyphicon glyphicon-remove"></i>
-                            </a>
-                        </div>
-                    </li>
+                    @endforeach
+
                 </ul>
                 <div class="panel-footer">
-                    <small>3 list items</small>
+                    <small>{{ $count }} list items</small>
                 </div>
             </div>
         </div>
