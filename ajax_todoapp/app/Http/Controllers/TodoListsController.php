@@ -38,15 +38,25 @@ class TodoListsController extends Controller
         return view('todolists.form', compact('todolist'));
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|min:5',
+            'description' => 'min:5'
+        ]);
+
+        $todolist = $request->user()
+            ->todolists()
+            ->create($request->all());
+
+        return view('todolists.item', compact('todolist'));
     }
 
     /**
