@@ -15,7 +15,7 @@
                         </h1>
                     </div>
                     <div class="pull-right">
-                        <a href="#" class="btn btn-success show-todolist-modal">
+                        <a href="{{ route('todolists.create') }}" class="btn btn-success show-todolist-modal">
                             Create New List
                         </a>
                     </div>

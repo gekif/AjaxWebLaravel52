@@ -25,14 +25,17 @@ class TodoListsController extends Controller
         return view('todolists.index', compact('todolists'));
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        $todolist = new Todolist();
+
+        return view('todolists.form', compact('todolist'));
     }
 
     /**
