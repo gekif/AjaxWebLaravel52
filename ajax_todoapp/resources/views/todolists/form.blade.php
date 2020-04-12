@@ -1,3 +1,6 @@
+<div class="alert alert-success" id="add-new-alert" style="display: none;"></div>
+
+
 {!! Form::model($todolist, ['route' => 'todolists.store']) !!}
     <div class="form-group">
         <label for="" class="control-label">List Name</label>
