@@ -15,7 +15,7 @@
                         </h1>
                     </div>
                     <div class="pull-right">
-                        <a href="{{ route('todolists.create') }}" class="btn btn-success show-todolist-modal">
+                        <a href="{{ route('todolists.create') }}" class="btn btn-success show-todolist-modal" title="Create New List">
                             Create New List
                         </a>
                     </div>
@@ -34,6 +34,8 @@
             <div class="alert alert-warning {{ $count ? 'hidden' : '' }}" id="no-record-alert">
                 No Records found.
             </div>
+
+            <div class="alert alert-success" id="update-alert" style="display: none;"></div>
 
             <div class="panel-panel-default {{ !$count ? 'hidden' : '' }}">
                 <ul class="list-group" id="todo-list">

@@ -78,7 +78,9 @@ class TodoListsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $todolist =  Todolist::findOrFail($id);
+
+        return view('todolists.form', compact('todolist'));
     }
 
     /**
@@ -90,7 +92,16 @@ class TodoListsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|min:5',
+            'description' => 'min:5'
+        ]);
+
+        $todolist = Todolist::findOrFail($id);
+
+        $todolist->update($request->all());
+
+        return view('todolists.item', compact('todolist'));
     }
 
     /**
