@@ -104,6 +104,7 @@ class TodoListsController extends Controller
         return view('todolists.item', compact('todolist'));
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -112,6 +113,10 @@ class TodoListsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $todolist = Todolist::findOrFail($id);
+
+        $todolist->delete();
+
+        return $todolist;
     }
 }

@@ -8,7 +8,7 @@
         <a href="{{ route('todolists.edit', $todolist->id) }}" class="btn btn-default show-todolist-modal btn-xs edit" title="Edit {{ $todolist->title }}">
             <i class="glyphicon glyphicon-edit"></i>
         </a>
-        <a href="#" class="btn btn-danger btn-xs" title="Delete">
+        <a href="{{ route('todolists.destroy', $todolist->id) }}" class="btn btn-danger btn-xs show-confirm-modal" data-title="{{ $todolist->title }}" title="Delete">
             <i class="glyphicon glyphicon-remove"></i>
         </a>
     </div>

@@ -37,7 +37,7 @@
 
             <div class="alert alert-success" id="update-alert" style="display: none;"></div>
 
-            <div class="panel-panel-default {{ !$count ? 'hidden' : '' }}">
+            <div class="panel panel-default {{ !$count ? 'hidden' : '' }}">
                 <ul class="list-group" id="todo-list">
 
                     @foreach ($todolists as $todolist)
@@ -54,6 +54,8 @@
         @include('todolists.todolistmodal')
 
         @include('todolists.taskmodal')
+
+        @include('todolists.confirmmodal')
 
     </div>
 </div>
