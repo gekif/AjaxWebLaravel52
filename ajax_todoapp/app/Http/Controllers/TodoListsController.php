@@ -59,6 +59,7 @@ class TodoListsController extends Controller
         return view('todolists.item', compact('todolist'));
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -67,8 +68,15 @@ class TodoListsController extends Controller
      */
     public function show($id)
     {
-        //
+        $todolist = Todolist::findOrFail($id);
+
+        $tasks = $todolist->tasks
+                    ->latest()
+                    ->get();
+
+        return view('tasks.index', compact('tasks'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -82,6 +90,7 @@ class TodoListsController extends Controller
 
         return view('todolists.form', compact('todolist'));
     }
+
 
     /**
      * Update the specified resource in storage.

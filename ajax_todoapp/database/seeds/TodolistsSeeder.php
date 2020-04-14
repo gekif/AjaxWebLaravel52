@@ -34,11 +34,13 @@ class TodolistsSeeder extends Seeder
             ];
 
             for ($j = 1; $j <= rand(1, 5); $j++) {
+                $taskDate = date('Y-m-d H:i:s', strtotime("{$date} + {$j} minutes"));
+
                 $tasks[] = [
-                    'todo_list_id' => $i,
-                    'title' => "The Tasl {$j} of todo list {$i}",
-                    'created_at' => $date,
-                    'updated_at' => $date,
+                    'todolist_id' => $i,
+                    'title' => "The Task {$j} of todo list {$i}",
+                    'created_at' => $taskDate,
+                    'updated_at' => $taskDate,
                     'completed_at' => rand(0, 1) == 0 ? NULL: $date
                 ];
             }
