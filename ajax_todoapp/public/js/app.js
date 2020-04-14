@@ -153,6 +153,8 @@ $('#confirm-remove-btn').click(function (event) {
                 $(this).remove();
 
                 updateTodoListCounter();
+
+                showMessage("Todo list has been deleted", '#update-alert');
             });
         }
     });
