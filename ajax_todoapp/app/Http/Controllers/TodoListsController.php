@@ -70,7 +70,7 @@ class TodoListsController extends Controller
     {
         $todolist = Todolist::findOrFail($id);
 
-        $tasks = $todolist->tasks
+        $tasks = $todolist->tasks()
                     ->latest()
                     ->get();
 
