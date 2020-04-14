@@ -161,14 +161,32 @@ $('#confirm-remove-btn').click(function (event) {
 });
 
 
-$('.show-task-modal').click(function (event) {
+$('body').on('click', '.show-task-modal', (function (event) {
     event.preventDefault();
 
+    var anchor = $(this),
+        url = anchor.attr('href'),
+        title = anchor.data('title');
+
+    $('#task-modal-subtitle').text(title);
+
+    $.ajax({
+        url: url,
+        dataType: 'html',
+        success: function (response) {
+            $('#task-table-body').html(response);
+
+            initIcheck();
+
+            countActiveTasks();
+        }
+    });
+
     $('#task-modal').modal('show');
-});
+}));
 
 
-$(function () {
+function initIcheck() {
     $('input[type=checkbox]').iCheck({
         checkboxClass: 'icheckbox_square-green',
         increaseArea: '20%'
@@ -181,4 +199,38 @@ $(function () {
     $('#check-all').on('ifUnchecked', function (event) {
         $('.check-item').iCheck('uncheck');
     });
+}
+
+function countActiveTasks() {
+    var total = $('tr.task-item:not(:has(td.done))').length;
+
+    $('#active-tasks-counter').text(total + " " +  (total > 1 ? 'tasks' : 'task') + " left");
+}
+
+
+$('.filter-btn').click(function (event) {
+    event.preventDefault();
+
+    var id = this.id;
+
+    $(this).addClass('active')
+        .parent()
+        .children()
+        .not(event.target)
+        .removeClass('active');
+
+    if (id === 'all-tasks') {
+        $('tr.task-item').show();
+
+    } else if (id === 'active-tasks') {
+        $('tr.task-item:has(td.done)').hide();
+
+        $('tr.task-item:not(:has(td.done))').show();
+
+    } else if (id === 'completed-tasks') {
+        $('tr.task-item:has(td.done)').show();
+
+        $('tr.task-item:not(:has(td.done))').hide();
+    }
+
 });
