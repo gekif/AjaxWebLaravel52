@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use App\Todolist;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -79,9 +80,15 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $todolistId, $id)
     {
-        //
+        $task = Task::findOrFail($id);
+
+        $task->completed_at = $request->completed == "true" ? Carbon::now() : NULL;
+
+        $affectedRow = $task->update();
+
+        echo $affectedRow;
     }
 
     /**

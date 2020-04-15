@@ -217,6 +217,34 @@ $('#task-form').submit(function(event) {
 });
 
 
+function markTheTask(checkbox) {
+    var url = checkbox.data('url'),
+        completed = checkbox.is(':checked');
+
+    $.ajax({
+        url: url,
+        type: 'PUT',
+        data: {
+            completed: completed,
+            _token: $("input[name=_token]").val()
+        },
+        success: function (response) {
+            if (response) {
+                var nextId = checkbox.closest('td').next();
+
+                if (completed) {
+                    nextId.addClass('done');
+
+                } else {
+                    nextId.removeClass('done');
+                }
+
+                countActiveTasks();
+            }
+        }
+    });
+}
+
 function initIcheck() {
     $('input[type=checkbox]').iCheck({
         checkboxClass: 'icheckbox_square-green',
@@ -230,6 +258,19 @@ function initIcheck() {
     $('#check-all').on('ifUnchecked', function (event) {
         $('.check-item').iCheck('uncheck');
     });
+
+    $('.check-item')
+        .on('ifChecked', function (event) {
+           var checkbox = $(this);
+
+            markTheTask(checkbox);
+        })
+        .on('ifUnchecked', function (event) {
+            var checkbox = $(this);
+
+            markTheTask(checkbox);
+        })
+
 }
 
 function countActiveTasks() {
