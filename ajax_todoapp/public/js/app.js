@@ -166,9 +166,15 @@ $('body').on('click', '.show-task-modal', (function (event) {
 
     var anchor = $(this),
         url = anchor.attr('href'),
-        title = anchor.data('title');
+        title = anchor.data('title'),
+        action = anchor.data('action'),
+        parent = anchor.closest('.list-group-item');
 
     $('#task-modal-subtitle').text(title);
+
+    $('#task-form').attr('action', action);
+
+    $('#selected-todo-list').val(parent.attr('id'));
 
     $.ajax({
         url: url,
@@ -184,6 +190,31 @@ $('body').on('click', '.show-task-modal', (function (event) {
 
     $('#task-modal').modal('show');
 }));
+
+
+$('#task-form').submit(function(event) {
+    event.preventDefault();
+
+    var form = $(this),
+        action = form.attr('action');
+
+    $.ajax({
+        url: action,
+        type: 'POST',
+        data: form.serialize(),
+        success: function (response) {
+            $('#task-table-body').prepend(response);
+
+            form.trigger('reset');
+
+            countActiveTasks();
+
+            initIcheck();
+
+            countAllTasksOfSelectedList();
+        }
+    });
+});
 
 
 function initIcheck() {
@@ -205,6 +236,14 @@ function countActiveTasks() {
     var total = $('tr.task-item:not(:has(td.done))').length;
 
     $('#active-tasks-counter').text(total + " " +  (total > 1 ? 'tasks' : 'task') + " left");
+}
+
+function countAllTasksOfSelectedList() {
+    var total = $('#task-table-body tr').length,
+        selectedTodolistId = $('#selected-todo-list').val();
+
+    $('#' + selectedTodolistId).find('span.badge')
+        .text(total + " " + (total > 1 ? 'tasks' : 'task'));
 }
 
 
